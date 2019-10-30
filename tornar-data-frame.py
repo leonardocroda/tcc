@@ -17,8 +17,8 @@ tweet_array_string=[]
 tweet_array=[]
 
 # Quebrando tweets que possuam mais de um pilar em vários tweets (um por pilar)
-#TRANSFORMAR EM FUNÇÃO e rodar enquanto tiver algum pilares>1
-for tweet in all_tweets:
+def quebrar():
+  for tweet in all_tweets:
     if len(tweet["pilares"])>1:
       tweet_dict["id"] = tweet["id"]
       tweet_dict["full_text"]=tweet["full_text"]
@@ -26,7 +26,10 @@ for tweet in all_tweets:
       tweet_dict["pilares"]=tweet["pilares"][(len(tweet["pilares"])-1)]
       tweet["pilares"].pop()
       tweet_array_string.append(json.dumps(tweet_dict))
-
+i=0
+while(i < 8):
+  quebrar()
+  i=i+1
 # Transformando as listas que sobraram na coluna pilares em String
 for tweet in all_tweets:
   if type(tweet["pilares"]) == list:
@@ -43,4 +46,4 @@ all_tweets.extend(tweet_array)
 # Transformando all_tweets em um DataFrame do Pandas
 import pandas as pd
 df = pd.DataFrame(all_tweets)
-df
+print(df)
