@@ -14,7 +14,8 @@ twitter = tweepy.API(authentication)
 resultados = [] # Variável que recebe todos os tweets coletados
 
 # Obter os ultimos 20 mil tweets disponiveis com as palavras 'balneario camboriu'
-for tweet in tweepy.Cursor(twitter.search, q='balneario camboriu',  tweet_mode='extended').items(20000):
+for tweet in tweepy.Cursor(twitter.search, q='balneario camboriu',  
+tweet_mode='extended').items(20000):
     resultados.append(tweet)
 
 # Verificando o numero de tweets coletados
