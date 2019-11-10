@@ -27,7 +27,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import Perceptron
 from sklearn.model_selection import cross_validate
-import extracao
+
 import pre_processamento
 import construirDataframeTreino
 import predicoes

@@ -36,3 +36,4 @@ def extrair():
   tweets_collection.insert_many(resultados_json) # Inserindo os dados no banco
 
   print("foram inseridos " , len(resultados), " Tweets")
+extrair()
