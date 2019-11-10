@@ -4,9 +4,7 @@ from string import punctuation
 import unidecode
 import pandas as pd
 
-dataframe=pd.DataFrame()
-
-def pre_processamentos(dataframe, coluna_texto):
+def execute(dataframe, coluna_texto):
   def remove_stopwords(dataframe, coluna_texto):
     nltk.download('stopwords')
     #removendo stopwords
@@ -81,4 +79,3 @@ def pre_processamentos(dataframe, coluna_texto):
   dataframe["stemmer"] = stemmer(dataframe,'lowercase')
   return dataframe
 
-dataframe = pre_processamentos(dataframe, 'full_text')
