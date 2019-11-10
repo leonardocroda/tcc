@@ -49,6 +49,7 @@ def monta_dataframe(all_tweets):
  
   #transforma em dataframe
   dataset = pd.DataFrame(all_tweets)
- 
+  dataset['sentimento']=dataset['sentimento'].replace({2:np.random.choice([0, 1])})
+
   dataset.drop('_id', inplace=True, axis=1)
   return dataset

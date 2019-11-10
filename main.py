@@ -42,17 +42,6 @@ new_tweets = novos_tweets.buscar_novos_tweets()
 new_tweets = pre_processamento.execute(new_tweets, 'full_text')
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'sentimento', modelo_sentimento)
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'pilares', modelo_pilares)
-print(len(new_tweets.query("sentimento == 1")))
-print(len(new_tweets.query("sentimento == 0")))
-print(len(new_tweets.query("sentimento == 2")))
-print(len(new_tweets.query("pilares == '1'")))
-print(len(new_tweets.query("pilares == '2'")))
-print(len(new_tweets.query("pilares == '3'")))
-print(len(new_tweets.query("pilares == '4'")))
-print(len(new_tweets.query("pilares == '5'")))
-print(len(new_tweets.query("pilares == '6'")))
-print(len(new_tweets.query("pilares == '7'")))
-
-
+print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
 
 
