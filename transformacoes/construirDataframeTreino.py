@@ -8,7 +8,15 @@ def buscar_tweets_mongo():
   client = MongoClient("mongodb+srv://leonardocroda:HLF2YMd3f1hf5cdo@classificar-tweets-srtwi.mongodb.net/admin?retryWrites=true&w=majority") # conecta num cliente do MongoDB rodando na sua máquina
   db = client['classificar_tweets'] # acessa o banco de dados
   collection = db['teste'] # acessa a minha coleção dentro desse banco de dados
-  all_tweets = list(collection.find({'pilares':{'$ne':'7'}} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}))
+  all_tweets=[]
+  # all_tweets = list(collection.find({'pilares':{'$ne':'7'}} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}))
+  economia = list(collection.find({'pilares':'1'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  pessoas = list(collection.find({'pilares':'2'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  governos = list(collection.find({'pilares':'3'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  mobilidade = list(collection.find({'pilares':'4'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  ambiente = list(collection.find({'pilares':'5'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  vida = list(collection.find({'pilares':'6'} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}).limit(400))
+  all_tweets= economia+pessoas+governos+mobilidade+ambiente+vida
   return all_tweets
 
 def monta_dataframe(all_tweets):

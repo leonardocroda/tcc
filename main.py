@@ -33,18 +33,25 @@ from transformacoes import construirDataframeTreino
 from transformacoes import predicoes
 from transformacoes import novos_tweets
 from transformacoes import datas
+from extracao import minas
 from carga import load
 all_tweets = construirDataframeTreino.buscar_tweets_mongo()
 dataframe = construirDataframeTreino.monta_dataframe(all_tweets)
+minas = minas.minas()
+minas = construirDataframeTreino.monta_dataframe(minas)
 dataframe = pre_processamento.execute(dataframe,'full_text')
-modelo_sentimento = predicoes.regressao_logistica(dataframe, 'stemmer','sentimento')
+minas = pre_processamento.execute(minas,'full_text')
+dataframe_sentimento = pd.concat([dataframe,minas])
+print(dataframe_sentimento.tail())
+modelo_sentimento = predicoes.naive_bayes(dataframe_sentimento, 'stemmer','sentimento')
 modelo_pilares = predicoes.regressao_logistica(dataframe, 'stemmer','pilares')
 new_tweets = novos_tweets.buscar_novos_tweets()
 new_tweets = pre_processamento.execute(new_tweets, 'full_text')
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'sentimento', modelo_sentimento)
+print(new_tweets)
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'pilares', modelo_pilares)
-# print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
+# # print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
 load.inserir(new_tweets)
-# print(new_tweets["sentimento"][1])
-# print(datas.transformar(new_tweets["created_at"]))
+# # print(new_tweets["sentimento"][1])
+# # print(datas.transformar(new_tweets["created_at"]))
 

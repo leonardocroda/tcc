@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS DimFeeling (
 );
 
 CREATE TABLE IF NOT EXISTS DimTime (
-  idDimTime INT,
+  idDimTime BIGINT,
   day INT,
   month VARCHAR(4),
   year INT,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS DimText (
 
 CREATE TABLE IF NOT EXISTS FactTweet (
   idFactTweet SERIAL,
-  characteristics INT REFERENCES DimCharacteristics (idDimCharacteristics),
+  characteristics CHAR REFERENCES DimCharacteristics (idDimCharacteristics),
   feeling INT REFERENCES DimFeeling (idDimFeeling),
   text BIGINT REFERENCES DimText (idDimText),
   time BIGINT REFERENCES DimTime (idDimTime),

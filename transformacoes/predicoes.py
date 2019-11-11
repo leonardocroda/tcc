@@ -16,7 +16,7 @@ import ast
 import pandas as pd
 
 def vectorizer(dataset,texto):
-  vetorizar = TfidfVectorizer(lowercase = False, max_features=4750) 
+  vetorizar = TfidfVectorizer(lowercase = False, max_features=3910) 
   bag_of_words = vetorizar.fit_transform(dataset[texto])
   return bag_of_words
 
