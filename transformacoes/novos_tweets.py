@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 import pandas as pd
-from predicoes import vectorizer
+from transformacoes import predicoes 
 def buscar_novos_tweets():
     client = MongoClient("mongodb+srv://leonardocroda:HLF2YMd3f1hf5cdo@classificar-tweets-srtwi.mongodb.net/admin?retryWrites=true&w=majority") # conecta num cliente do MongoDB rodando na sua máquina
     db = client['classificar_tweets'] # acessa o banco de dados
@@ -10,8 +10,7 @@ def buscar_novos_tweets():
     return new_tweets
 
 def classificar(new_tweets, texto, classificacao, modelo):
-    bag_of_words = vectorizer(new_tweets,texto)
+    bag_of_words = predicoes.vectorizer(new_tweets,texto)
     predicao = modelo.predict(bag_of_words)
     new_tweets[classificacao]=predicao
     return new_tweets
-

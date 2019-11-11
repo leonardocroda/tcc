@@ -12,9 +12,9 @@ def buscar_tweets_mongo():
   return all_tweets
 
 def monta_dataframe(all_tweets):
-  tweet_dict={}
-  tweet_array_string=[]
-  tweet_array=[]
+  tweet_dict=dict()
+  tweet_array_string=list()
+  tweet_array=list()
   
   #caso o tweet tenha mais de um assunto, é atribuido ele é adicionado a tweet_dict e o ultimo assunto é removido da coluna 
   def quebrar():
@@ -49,7 +49,6 @@ def monta_dataframe(all_tweets):
  
   #transforma em dataframe
   dataset = pd.DataFrame(all_tweets)
-  dataset['sentimento']=dataset['sentimento'].replace({2:np.random.choice([0, 1])})
 
   dataset.drop('_id', inplace=True, axis=1)
   return dataset

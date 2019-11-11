@@ -28,10 +28,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import Perceptron
 from sklearn.model_selection import cross_validate
 
-import pre_processamento
-import construirDataframeTreino
-import predicoes
-import novos_tweets
+from transformacoes import pre_processamento
+from transformacoes import construirDataframeTreino
+from transformacoes import predicoes
+from transformacoes import novos_tweets
 
 all_tweets = construirDataframeTreino.buscar_tweets_mongo()
 dataframe = construirDataframeTreino.monta_dataframe(all_tweets)
@@ -42,6 +42,6 @@ new_tweets = novos_tweets.buscar_novos_tweets()
 new_tweets = pre_processamento.execute(new_tweets, 'full_text')
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'sentimento', modelo_sentimento)
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'pilares', modelo_pilares)
-print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
-
+# print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
+print(new_tweets.head())
 

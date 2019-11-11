@@ -48,7 +48,7 @@ def execute(dataframe, coluna_texto):
     nltk.download('stopwords')
     #removendo stopwords
     palavras_irrelevantes = nltk.corpus.stopwords.words("portuguese")
-    palavras_irrelevantes.extend(['http','https','://','...','rt', 'https','co','t','balneario','camboriu','"'])
+    palavras_irrelevantes.extend(['...','rt','balneario','camboriu','"'])
     frase_processada = list()
     token_espaco = nltk.tokenize.WhitespaceTokenizer()
 
