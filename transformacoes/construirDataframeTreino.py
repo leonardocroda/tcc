@@ -8,7 +8,7 @@ def buscar_tweets_mongo():
   client = MongoClient("mongodb+srv://leonardocroda:HLF2YMd3f1hf5cdo@classificar-tweets-srtwi.mongodb.net/admin?retryWrites=true&w=majority") # conecta num cliente do MongoDB rodando na sua máquina
   db = client['classificar_tweets'] # acessa o banco de dados
   collection = db['teste'] # acessa a minha coleção dentro desse banco de dados
-  all_tweets = list(collection.find({'pilares':{'$ne':'7'}} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1}))
+  all_tweets = list(collection.find({'pilares':{'$ne':'7'}} , {"id": 1,"full_text": 1,"sentimento": 1,"pilares": 1,"created_at":1}))
   return all_tweets
 
 def monta_dataframe(all_tweets):
@@ -20,8 +20,9 @@ def monta_dataframe(all_tweets):
   def quebrar():
     for tweet in all_tweets:
       if len(tweet["pilares"])>1:
-        tweet_dict["id"] = tweet["id"]
+        tweet_dict["id"] = tweet["id"]+100
         tweet_dict["full_text"]=tweet["full_text"]
+        tweet_dict["created_at"]=tweet["created_at"]
         tweet_dict["sentimento"]=tweet["sentimento"]
         tweet_dict["pilares"]=tweet["pilares"][(len(tweet["pilares"])-1)]
         tweet["pilares"].pop()

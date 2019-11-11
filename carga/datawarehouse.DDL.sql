@@ -5,33 +5,33 @@ CREATE TABLE IF NOT EXISTS DimFeeling (
 );
 
 CREATE TABLE IF NOT EXISTS DimTime (
-  idDimTime INT NOT NULL,
-  day INT NULL,
-  mounth INT NULL,
-  year INT NULL,
-  hour DATETIME NULL,
-  shift VARCHAR(45) NULL,
-  season VARCHAR(45) NULL,
+  idDimTime INT,
+  day INT,
+  month VARCHAR(4),
+  year INT,
+  dayweek VARCHAR(45),
+  hour VARCHAR (8),
+  shift VARCHAR(45),
   PRIMARY KEY (idDimTime)
 );
 
 CREATE TABLE IF NOT EXISTS DimCharacteristics (
-  idDimCharacteristics INT NOT NULL,
+  idDimCharacteristics CHAR NOT NULL,
   characteristic VARCHAR(45) NOT NULL,
   PRIMARY KEY (idDimCharacteristics)
 );
 
 CREATE TABLE IF NOT EXISTS DimText (
-  idDimText INT NOT NULL,
-  text VARCHAR(280) NULL,
+  idDimText BIGINT,
+  text VARCHAR(2000) NULL,
   PRIMARY KEY (idDimText)
 );
 
 CREATE TABLE IF NOT EXISTS FactTweet (
-  idFactTweet INT NOT NULL,
-  DimCharacteristics_idDimCharacteristics INT REFERENCES DimCharacteristics (idDimCharacteristics),
-  DimFeeling_idDimFeeling INT REFERENCES DimFeeling (idDimFeeling),
-  DimText_idDimText INT REFERENCES DimText (idDimText),
-  DimTime_idDimTime INT REFERENCES DimTime (idDimTime),
+  idFactTweet SERIAL,
+  characteristics INT REFERENCES DimCharacteristics (idDimCharacteristics),
+  feeling INT REFERENCES DimFeeling (idDimFeeling),
+  text BIGINT REFERENCES DimText (idDimText),
+  time BIGINT REFERENCES DimTime (idDimTime),
   PRIMARY KEY (idFactTweet)
 );

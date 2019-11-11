@@ -19,6 +19,7 @@ def execute(dataframe, coluna_texto):
     pontuacao = list()
     for ponto in punctuation:
       pontuacao.append(ponto)
+    
     frase_processada = list()
     for tweet in dataframe[coluna_texto]:
       nova_frase = list()
@@ -48,7 +49,7 @@ def execute(dataframe, coluna_texto):
     nltk.download('stopwords')
     #removendo stopwords
     palavras_irrelevantes = nltk.corpus.stopwords.words("portuguese")
-    palavras_irrelevantes.extend(['...','rt','balneario','camboriu','"'])
+    palavras_irrelevantes.extend(['...','rt','"',"'",'.'])
     frase_processada = list()
     token_espaco = nltk.tokenize.WhitespaceTokenizer()
 

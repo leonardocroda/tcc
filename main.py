@@ -32,7 +32,8 @@ from transformacoes import pre_processamento
 from transformacoes import construirDataframeTreino
 from transformacoes import predicoes
 from transformacoes import novos_tweets
-
+from transformacoes import datas
+from carga import load
 all_tweets = construirDataframeTreino.buscar_tweets_mongo()
 dataframe = construirDataframeTreino.monta_dataframe(all_tweets)
 dataframe = pre_processamento.execute(dataframe,'full_text')
@@ -43,5 +44,7 @@ new_tweets = pre_processamento.execute(new_tweets, 'full_text')
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'sentimento', modelo_sentimento)
 new_tweets = novos_tweets.classificar(new_tweets, 'stemmer', 'pilares', modelo_pilares)
 # print(predicoes.metricas(dataframe, 'stemmer', 'sentimento', LogisticRegression()))
-print(new_tweets.head())
+load.inserir(new_tweets)
+# print(new_tweets["sentimento"][1])
+# print(datas.transformar(new_tweets["created_at"]))
 
