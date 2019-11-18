@@ -57,7 +57,8 @@ def logistic_regression_metrics(dataframe):
                                                             ], cv=10),"\n")                      
                                                                                                 
 def naive_bayes_metrics(dataframe):
-  categories = ['economia','pessoas','governos','mobilidade','ambiente','vida']
+  # categories = ['economia','pessoas','governos','mobilidade','ambiente','vida']
+  categories = ['sentimento']
   stop = nltk.corpus.stopwords.words("portuguese")
   pipeline = Pipeline([
                   ('tfidf', TfidfVectorizer(lowercase=True, ngram_range=(1,2), stop_words= stop)),
@@ -65,9 +66,9 @@ def naive_bayes_metrics(dataframe):
               ])
   for category in categories:
       print('... Processing {}'.format(category))
-      print('Validação Cruzada: \n', cross_validate(pipeline, dataframe.lowercase, dataframe[category],
+      print('Validação Cruzada: \n', cross_validate(pipeline, dataframe.stemmer, dataframe[category],
                                                     scoring=['accuracy',
-                                                              'f1',
+                                                              # 'f1',
                                                             ], cv=10),"\n")        
 
 def gradient_metrics(dataframe):
@@ -100,7 +101,7 @@ def perceptron_metrics(dataframe):
 
 
 def vectorizer(dataset,texto):
-  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features=5000) 
+  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features = 20000) 
   bag_of_words = vetorizar.fit_transform(dataset[texto])
   return bag_of_words
 
