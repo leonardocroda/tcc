@@ -7,6 +7,8 @@ def buscar_novos_tweets():
     collection = db['new_tweets'] # acessa a minha coleção dentro desse banco de dados
     new_tweets = list(collection.find({} , {"id":1,"full_text": 1, "created_at":1}))
     new_tweets=pd.DataFrame(new_tweets)
+    new_tweets.drop('_id', inplace=True, axis=1)
+
     return new_tweets
 
 def classificar(new_tweets, texto, classificacao, modelo):

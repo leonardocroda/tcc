@@ -16,7 +16,7 @@ def extrair():
 
   # Obter os ultimos 20 mil tweets disponiveis com as palavras 'balneario camboriu'
   for tweet in tweepy.Cursor(twitter.search, q='balneario camboriu',  
-  tweet_mode='extended').items(20000):
+  tweet_mode='extended').items(2000):
       resultados.append(tweet)
 
   # Verificando o numero de tweets coletados
@@ -24,16 +24,16 @@ def extrair():
 
   # Configuração de conexão com o MongoDB
 
-  cliente = MongoClient()  # Iniciando o client do mongo
-  banco = cliente.tweets_python # Conectando com o banco de dados
-  tweets_collection = banco.tweets # Escolhendo a collection na qual os tweets serão inseridos
+  client = MongoClient("mongodb+srv://leonardocroda:HLF2YMd3f1hf5cdo@classificar-tweets-srtwi.mongodb.net/admin?retryWrites=true&w=majority") # conecta num cliente do MongoDB rodando na sua máquina
+  db = client['classificar_tweets'] # acessa o banco de dados
+  collection = db['new_tweets'] # Escolhendo a collection na qual os tweets serão inseridos
 
   resultados_json=[]
 
   for tweet in resultados:  # Transformando o dado que retorna da api do twitter (list) em json para inserir no mongo
     tweet_json = tweet._json # _json é a coluna da lista que possui todos os dados do tweet que preciso
     resultados_json.append(tweet_json) 
-  tweets_collection.insert_many(resultados_json) # Inserindo os dados no banco
+  collection.insert_many(resultados_json) # Inserindo os dados no banco
 
   print("foram inseridos " , len(resultados), " Tweets")
 extrair()

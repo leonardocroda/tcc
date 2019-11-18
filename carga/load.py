@@ -9,7 +9,7 @@ def inserir(dataframe):
     tempos = datas.transformar(dataframe["created_at"])
     
     con = psycopg2.connect(host='localhost', database='datawarehouse',
-    user='postgres', password='ifc')
+    user='postgres', password='metallum1')
     cur = con.cursor()
     i=0
     for texto in textos:
