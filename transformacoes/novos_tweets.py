@@ -75,20 +75,24 @@ def quebra(all_tweets):
     tweet_array=[]
     # all_tweets=list(all_tweets)
     #caso o tweet tenha mais de um assunto, é atribuido ele é adicionado a tweet_dict e o ultimo assunto é removido da coluna 
-    def quebrar():
+    def quebrar(i):
+        
         for tweet in all_tweets:
             if len(tweet["pilares"])>1:
-                tweet_dict["id"] = tweet["id"]
+                tweet_dict["id"] = tweet["id"]+i
                 tweet_dict["full_text"]=tweet["full_text"]
                 tweet_dict["created_at"]=tweet["created_at"]
                 tweet_dict["sentimento"]=tweet["sentimento"]
+                tweet_dict["sem_acentos"]=tweet["sem_acentos"]
                 tweet_dict["pilares"]=tweet["pilares"][(len(tweet["pilares"])-1)]
                 tweet["pilares"].pop()
                 tweet_array_string.append(json.dumps(tweet_dict))
+            
     #executa quebrar 6 vezes, pois são 6 assuntos possíveis
-    i=0
-    while (i < 7):
-        quebrar()
+    i=1
+   
+    while (i < 8):
+        quebrar(i)
         i=i+1
     #quando eu removo os assuntos, no tweet original o tipo do dado continua sendo lista, isso atribui a pilares a string do pilar em si
     for tweet in all_tweets:
