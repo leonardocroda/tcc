@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import pandas as pd
 
-def buscar_tweets():
+def monta_dataframe_treino():
   client = MongoClient("mongodb+srv://leonardocroda:HLF2YMd3f1hf5cdo@classificar-tweets-srtwi.mongodb.net/admin?retryWrites=true&w=majority") # conecta num cliente do MongoDB rodando na sua máquina
   db = client['classificar_tweets'] # acessa o banco de dados
   collection = db['dataset'] # acessa a minha coleção dentro desse banco de dados
@@ -28,12 +28,12 @@ def buscar_tweets():
       tweet['mobilidade']=1
     else:
       tweet['mobilidade']=0
-  
+
     if(tweet['pilares']=='5'):
       tweet['ambiente']=1
     else:
       tweet['ambiente']=0
-  
+
     if(tweet['pilares']=='6'):
       tweet['vida']=1
     else:
@@ -41,5 +41,5 @@ def buscar_tweets():
     
   dataframe = pd.DataFrame(all_tweets)
   dataframe.drop('_id', inplace=True, axis=1)
-  
+
   return dataframe

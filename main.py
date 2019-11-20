@@ -1,17 +1,17 @@
 import pandas as pd
 
 from transformacoes import pre_processamento
-from transformacoes.buscar_tweets import buscar_tweets
+from transformacoes.buscar_tweets import monta_dataframe_treino
 from transformacoes import predicoes
 from transformacoes import novos_tweets
 from extracao import minas
 from carga import load
 
-dataframe = buscar_tweets()
+dataframe = monta_dataframe_treino()
 dataframe = pre_processamento.execute(dataframe,'full_text')
 minas = minas.minas()
 minas = pre_processamento.execute(minas,'full_text')
-modelo_sentimento = predicoes.naive_bayes(minas, 'stopwords','sentimento')
+modelo_sentimento = predicoes.naive_bayes(minas, 'sem_acentos','sentimento')
 
 new_tweets = novos_tweets.buscar_novos_tweets()
 new_tweets = pre_processamento.execute(new_tweets, 'full_text')
@@ -19,11 +19,15 @@ new_tweets = pre_processamento.execute(new_tweets, 'full_text')
 pilares = ['economia','pessoas','governos','mobilidade','ambiente','vida']
 for pilar in pilares:
     print('... Processing {}'.format(pilar))
-    modelo = predicoes.random_forest(dataframe,'stopwords',pilar)
-    new_tweets = novos_tweets.classificar(new_tweets, 'stopwords', pilar, modelo)
+    modelo = predicoes.random_forest(dataframe,'sem_acentos',pilar)
+    new_tweets = novos_tweets.classificar(new_tweets, 'sem_acentos', pilar, modelo)
 
-new_tweets = novos_tweets.classificar(new_tweets,'stopwords','sentimento',modelo_sentimento)
+new_tweets = novos_tweets.classificar(new_tweets,'sem_acentos','sentimento',modelo_sentimento)
 
-print(new_tweets)
-# load.inserir(new_tweets)
+
+new_tweets = novos_tweets.unir(new_tweets)
+new_tweets = novos_tweets.quebra(new_tweets)
+
+
+load.inserir(new_tweets)
 

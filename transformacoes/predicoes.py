@@ -16,6 +16,7 @@ from sklearn.neighbors import KNeighborsClassifier
 def decision_tree_metrics(dataframe):
   categories = ['sentimento']
   # categories = ['economia','pessoas','governos','mobilidade','ambiente','vida']
+  
   stop = nltk.corpus.stopwords.words("portuguese")
   pipeline = Pipeline([
                   ('tfidf', TfidfVectorizer(lowercase=True, ngram_range=(1,2), stop_words= stop)),
@@ -101,7 +102,9 @@ def perceptron_metrics(dataframe):
 
 
 def vectorizer(dataset,texto):
-  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features = 20000) 
+  # nltk.download('stopwords')
+  stop = nltk.corpus.stopwords.words("portuguese")
+  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features = 20000, stop_words=stop) 
   bag_of_words = vetorizar.fit_transform(dataset[texto])
   return bag_of_words
 
