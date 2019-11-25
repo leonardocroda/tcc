@@ -24,6 +24,7 @@ def unir(new_tweets):
     lista =  new_tweets.values.tolist()
     lista_dicionarios=[]
     for item in lista:
+
         dicionario={}
         dicionario['created_at'] = item[0]
         dicionario['id']= item[1]
@@ -31,14 +32,16 @@ def unir(new_tweets):
         dicionario['sem_links']=item[3]
         dicionario['sem_pontuacao']=item[4]
         dicionario['sem_acentos']=item[5]
-        dicionario['stemmer']=item[6]
-        dicionario['economia']=item[7]
-        dicionario['pessoas']=item[8]
-        dicionario['governos']=item[9]
-        dicionario['mobilidade']=item[10]
-        dicionario['ambiente']=item[11]
-        dicionario['vida']=item[12]
-        dicionario['sentimento']=item[13]
+        dicionario['lowercase']=item[6]
+        dicionario['stopwords']=item[7]
+        dicionario['stemmer']=item[8]
+        dicionario['economia']=item[9]
+        dicionario['pessoas']=item[10]
+        dicionario['governos']=item[11]
+        dicionario['mobilidade']=item[12]
+        dicionario['ambiente']=item[13]
+        dicionario['vida']=item[14]
+        dicionario['sentimento']=item[15]
         dicionario['pilares']=[]
         if dicionario['economia']==1:
             dicionario['pilares'].extend('1')
@@ -83,7 +86,7 @@ def quebra(all_tweets):
                 tweet_dict["full_text"]=tweet["full_text"]
                 tweet_dict["created_at"]=tweet["created_at"]
                 tweet_dict["sentimento"]=tweet["sentimento"]
-                tweet_dict["sem_acentos"]=tweet["sem_acentos"]
+                tweet_dict["stopwords"]=tweet["stopwords"]
                 tweet_dict["pilares"]=tweet["pilares"][(len(tweet["pilares"])-1)]
                 tweet["pilares"].pop()
                 tweet_array_string.append(json.dumps(tweet_dict))

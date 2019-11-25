@@ -38,32 +38,32 @@ def execute(dataframe, coluna_texto):
     return sem_acentos
   dataframe['sem_acentos']=remove_acentos(dataframe,'sem_pontuacao')
 
-  # def lowercase(dataframe, coluna_texto):
-  #   minusculos = list()
-  #   for tweet in dataframe[coluna_texto]:
-  #     minusculos.append(tweet.lower())
-  #   return minusculos
-  # dataframe['lowercase']=lowercase(dataframe,'sem_acentos')
+  def lowercase(dataframe, coluna_texto):
+    minusculos = list()
+    for tweet in dataframe[coluna_texto]:
+      minusculos.append(tweet.lower())
+    return minusculos
+  dataframe['lowercase']=lowercase(dataframe,'sem_acentos')
 
-  # def remove_stopwords(dataframe, coluna_texto):
-  #   nltk.download('stopwords')
-  #   #removendo stopwords
-  #   palavras_irrelevantes = nltk.corpus.stopwords.words("portuguese")
-  #   palavras_irrelevantes.extend(['...','rt','"',"'",'.'])
-  #   frase_processada = list()
-  #   token_espaco = nltk.tokenize.WhitespaceTokenizer()
+  def remove_stopwords(dataframe, coluna_texto):
+    nltk.download('stopwords')
+    #removendo stopwords
+    palavras_irrelevantes = nltk.corpus.stopwords.words("portuguese")
+    palavras_irrelevantes.extend(['balneario','camboriu','Balneário',"Camboriú",'.'])
+    frase_processada = list()
+    token_espaco = nltk.tokenize.WhitespaceTokenizer()
 
-  #   for tweet in dataframe[coluna_texto]:
-  #       nova_frase = list()
-  #       palavras_texto = token_espaco.tokenize(tweet)
+    for tweet in dataframe[coluna_texto]:
+        nova_frase = list()
+        palavras_texto = token_espaco.tokenize(tweet)
         
-  #       for palavra in palavras_texto:
-  #           if palavra not in palavras_irrelevantes:
-  #               nova_frase.append(palavra)
-  #       frase_processada.append(' '.join(nova_frase))
+        for palavra in palavras_texto:
+            if palavra not in palavras_irrelevantes:
+                nova_frase.append(palavra)
+        frase_processada.append(' '.join(nova_frase))
 
-  #   return frase_processada
-  # dataframe["stopwords"]=remove_stopwords(dataframe,'lowercase')
+    return frase_processada
+  dataframe["stopwords"]=remove_stopwords(dataframe,'lowercase')
 
   def stemmer(dataframe, coluna_texto):
     token_pontuacao = tokenize.WordPunctTokenizer()
