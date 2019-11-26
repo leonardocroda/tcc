@@ -28,5 +28,5 @@ new_tweets = novos_tweets.unir(new_tweets)
 new_tweets = novos_tweets.quebra(new_tweets)
 
 
-load.inserir(new_tweets)
+# load.inserir(new_tweets)
 

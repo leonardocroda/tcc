@@ -106,7 +106,7 @@ def vectorizer(dataset,texto):
   # stop = nltk.corpus.stopwords.words("portuguese")
   # adicionais = ['balneario camboriu','Balneário Camboriú', 'Balneario camboriu']
   # stop.extend(adicionais)
-  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features = 20000)#, stop_words=stop) 
+  vetorizar = TfidfVectorizer(lowercase=True, ngram_range=(1,2), max_features = 4000)#, stop_words=stop) 
   bag_of_words = vetorizar.fit_transform(dataset[texto])
   return bag_of_words
 
