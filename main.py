@@ -1,5 +1,4 @@
 import pandas as pd
-
 from transformacoes import pre_processamento
 from transformacoes.buscar_tweets import monta_dataframe_treino
 from transformacoes import predicoes
@@ -23,10 +22,8 @@ for pilar in pilares:
     new_tweets = novos_tweets.classificar(new_tweets, 'stopwords', pilar, modelo)
 
 new_tweets = novos_tweets.classificar(new_tweets,'stopwords','sentimento',modelo_sentimento)
-
 new_tweets = novos_tweets.unir(new_tweets)
 new_tweets = novos_tweets.quebra(new_tweets)
 
-
-# load.inserir(new_tweets)
+load.inserir(new_tweets)
 
